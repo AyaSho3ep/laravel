@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,48 +19,18 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('/posts',function(){
-    $posts= [
-        ["id"=>1,
-        "name"=>"Aya",
-        "body"=>"Hello!",
-        "title"=>"info"],
-        ["id"=>2,
-        "name"=>"sara",
-        "body"=>"Hello!",
-        "title"=>"info"],
-        ["id"=>3,
-        "name"=>"salma",
-        "body"=>"Hello!",
-        "title"=>"info"],
-    ];
-    return view("posts.index",["posts"=>$posts]);
-});
+Route::resource('posts', PostController::class);
 
-Route::get('/show/{id}', function ($id){
-    $post= ["id"=>$id,
-        "name"=>"Aya",
-        "body"=>"Hello!",
-        "title"=>"info"];
-    return view('posts.show',$post);
-})->where('id', '[0-9]+');
+// Route::get('/posts', [PostController::class, "index"])->name('posts.index');
 
-Route::get('/edit/{id}', function ($id){
-    $post= ["id"=>$id,
-        "name"=>"Aya",
-        "body"=>"Hello!",
-        "title"=>"info"];
-    return view('posts.edit',$post);
-});
+// Route::get('/posts/{id}', [PostController::class, "show"])->name('posts.show');
 
-Route::post("update", function(){
-    return "updated successfully!!";
-});
+// Route::get('/posts/{id}/edit', [PostController::class, "edit"])->name('posts.edit');
 
-Route::get("/create", function(){
-    return view("posts.create");
-});
+// Route::post("/posts/{id}", [PostController::class, "update"]);
 
-Route::post("/store", function(){
-    return "Done :)";
-});
+// Route::post("/posts", [PostController::class, "store"]);
+
+// Route::get("/posts/create", [PostController::class, "create"]);
+
+// Route::post("/posts/{id}", [PostController::class, "destroy"]);

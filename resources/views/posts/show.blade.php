@@ -1,7 +1,7 @@
 <ul>
         <li>{{$id}}</li>
-        <li>{{$name}}</li>
-        <li>{{$body}}</li>
         <li>{{$title}}</li>
+        <li>{{$description}}</li>
+        <li>{{$created_at}}</li>
 </ul>
 
