@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,23 +13,14 @@ use App\Http\Controllers\PostController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
+Route::get('/dashboard', function () {
+    return redirect('/posts');
+})->middleware(['auth'])->name('dashboard');
 
-Route::resource('posts', PostController::class);
+require __DIR__.'/auth.php';
 
-// Route::get('/posts', [PostController::class, "index"])->name('posts.index');
-
-// Route::get('/posts/{id}', [PostController::class, "show"])->name('posts.show');
-
-// Route::get('/posts/{id}/edit', [PostController::class, "edit"])->name('posts.edit');
-
-// Route::post("/posts/{id}", [PostController::class, "update"]);
-
-// Route::post("/posts", [PostController::class, "store"]);
-
-// Route::get("/posts/create", [PostController::class, "create"]);
-
-// Route::post("/posts/{id}", [PostController::class, "destroy"]);
+Route::resource("posts", PostController::class)->middleware('auth');

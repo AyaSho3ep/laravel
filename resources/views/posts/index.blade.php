@@ -1,9 +1,17 @@
+@extends("site_layouts.app")
+@section('sidebar')
+    @parent
+    <h3>new link</h3>
+@endsection
+@section('content')
 <br>
-<button><a href="/posts/create">Add New</a></button><br><br>
+<button class="btn btn-light"><a href="/posts/create">Add New</a></button><br><br>
 
-<table border=2>
+<table border=2 class="table table-dark table-hover w-75">
     <tr>
         <th>ID</th>
+        <th>User Name</th>
+        <th>User Email</th>
         <th>Titlle</th>
         <th>Description</th>
         <th>Created_at</th>
@@ -12,6 +20,8 @@
 @foreach ($posts as $post)
 <tr>
     <td>{{$post->id}}</td>
+    <td>{{$post->user->name}}</td>
+    <td>{{$post->user->email}}</td>
     <td>{{$post->title}}</td>
     <td>{{$post->description}}</td>
     <td>{{$post->created_at}}</td>
@@ -35,3 +45,5 @@
 </tr>
 @endforeach
 </table>
+
+@endsection

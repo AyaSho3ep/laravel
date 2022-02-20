@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
-
+use App\Http\Requests\StorePostRequest;
+use Illuminate\support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,6 +17,7 @@ class PostController extends Controller
     {
         //select * from posts
         $posts= Post::all();
+        // $post->user->name;
         // return $posts;
         return view("posts.index",["posts"=>$posts]);
     }
@@ -36,14 +38,27 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         // $data=$request->all();
         // $data=$request->title;
-        post::create([
-            "title"=>$request->title,
-            "description"=>$request->description
-        ]);
+        // post::create([
+        //     "title"=>$request->title,
+        //     "description"=>$request->description
+        // ]);
+
+        // validate([rolrs],[msg])
+
+        // $request->validate([
+        //     'title'=>'required|min:3',
+        //     'description'=>'required'
+        // ]);
+        $post= new Post;
+        $post->title=$request->title;
+        $post->description=$request->description;
+        $post->user_id=Auth::id();
+        $post->save();
+
         // return "done";
         return redirect('/posts');
     }
@@ -85,8 +100,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePostRequest $request, $id)
     {
+        // $request->validate([
+        //     'title'=>'required|min:3',
+        //     'description'=>'required'
+        // ]);
+
         $post= post::find($id);
         $post->title=$request->title;
         $post->description=$request->description;
